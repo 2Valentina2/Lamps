@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from button.views import toggle
 
 urlpatterns = [
     path('', include('button.urls')),
     path('admin/', admin.site.urls),
+    path("toggle/", toggle),
 ]

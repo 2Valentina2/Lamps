@@ -1,3 +1,4 @@
+
 <h1>Hello World!!!</h1>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,6 +8,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
+    body {
+      background-color: #292929;
+      color: white;
+    }
+
     .switch {
       position: relative;
       display: inline-block;
@@ -45,7 +51,11 @@
     }
     
     input:checked + .slider {
-      background-color: #2196F3;
+      background-color: #0ec755;
+    }
+
+    input:not(:checked) + .slider {
+      background-color: #c00f1e;
     }
     
     input:focus + .slider {
@@ -66,39 +76,25 @@
     .slider.round:before {
       border-radius: 50%;
     }
-    </style>
+  </style>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#checkbox').change(function() {
+        $.post("/toggle/", {
+            state: this.checked, 
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+        });
+    });
+});
+</script>
 
 </head>
 <body>
-
-  
   <label class="switch">
-    <input type="checkbox">
+    <input id="checkbox" type="checkbox" value="closed" {% if button_state %} checked {% endif %} >
     <span class="slider round"></span>
-
-
-
-
-<!-- 
-  <div style="display:inline-block">
-    <label>Currently working here?</label>
-    <label class="switch">
-        <input type="checkbox" id="checkbox" value="{{workexperiance.is_working}}">
-        <span class="slider round"></span>
-    </label>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script> Import Jquery Here-->
-  <!-- <script type="text/javascript">
-  $(document).ready(function() {
-      $('#checkbox').change(function() {
-          $.post("/toggle/", {
-              id: '{{workexperiance.id}}', 
-              isworking: this.checked, 
-              csrfmiddlewaretoken: '{{ csrf_token }}' 
-          });
-      });
-  });  --> 
-  </script>
 </label>
 </body>
 </html>
